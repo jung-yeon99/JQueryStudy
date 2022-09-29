@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <style>
+        body{
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        p{
+            text-align: center;
+            color:#AFAFB2;
+        }
+        .bottom{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            border-top: 1px solid #C5C5C7;
+            width: 100vw;
+        }
+        .top{
+            position: relative;
+            top : 0;
+            background-color: #F4F4F4;
+            opacity: 50%;
+            border-top: 1px solid #ddd;
+            width: 100vw;
+            padding-left: 20px;
+            height: 60px;
+        }
+        .bubble{
+            border-radius: 50px;
+            background-color: #E9E9EB;
+            padding: 3px;
+            margin-left: 40px;
+            margin-top: 30px;
+            text-align: center;
+            font-size:16px;
+        }
+        .top_center{
+            position: relative;
+            display: inline-block;
+            margin-right: 40px;
+            padding-top: 15px;
+            margin-left: 15px;
+        }
+        
+        #msg{
+            overflow-y: auto;
+            font-size: 16px;
+            background-color: #fff;
+            border-radius: 50px;
+            border: 1px solid #C5C5C7;
+            width: 50%;
+            height: 30px;
+            color: #000;
+            margin-left: 40px;
+        }
+        #chat{
+            width: auto;
+            height: calc(100vh - 40px);
+            color: #000;
+            display: inline-block;
+     
+        }
+        #send{
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            margin-left: 20px;
+            border: 0;
+            background-color: #3478F6;
+            color: #fff;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top">
+        <div class="top_center"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="top_center"><i class="fa-solid fa-video"></i></div>
+    </div>
+
+    <p>iMessage</p>
+    <p>9월 27일 (화) 오후 10:23</p>
+
+    <div id="chat">
+    </div>
+    <div class="bottom">
+
+        <input id="msg" placeholder="Message"/>
+        <button id="send"><b>전송</b></button>
+    </div>
+</body>
+
+<script>
+$(function(){
+    $('#send').click(function(){
+        let msg = $('#msg').val();
+        console.log(msg);
+
+        let bubble = $('<div class="bubble"></div>');
+        bubble.text(msg);
+        $('#chat').append(bubble);
+
+        $('msg').val('');
+
+        $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+    })
+});
+
+
+</script>
+
+</html>

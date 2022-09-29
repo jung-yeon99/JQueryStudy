@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <style>
+       body{
+        background-color: #E3E9FF;
+        padding: 64px;
+       }
+       .text{
+        text-shadow:2px 2px pink;
+       }
+       #title{
+        background-color: skyblue;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        padding: 16px;
+       }
+       #list{
+        background-color: #fff;
+        list-style: none;
+        padding: 24px;
+       }
+       .item{
+        padding: 24px;
+        font-size: 24px;
+        color: skyblue;
+        cursor: pointer;
+       }
+       .done{
+        text-decoration: line-through;
+        text-decoration-color: #E3E9FF;
+       }
+       .icon{
+        margin-right: 12px;
+       }
+       .done > .text{
+        text-decoration: line-through;
+        text-decoration-color: #E3E9FF;
+       }
+       .done > .icon{
+        color: skyblue;
+       }
+       #input_todo {
+        width: 780px;
+        height: 40px;
+        border: 0;
+        border-radius: 100px;
+        border-color: #fff;
+       }
+       #input_todo:focus {
+        width: 780px;
+        height: 40px;
+        border-radius: 100px;
+        outline-color: skyblue;
+       }
+       #btn_add {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        margin-left: 20px;
+        border: 0;
+        border-color: skyblue;
+        background-color: skyblue;
+       }
+       
+    </style>
+    
+</head>
+
+<body>
+        <h1 id="title">To-Do List😃</h1>
+        <ul id="list"></ul>
+        <input id="input_todo"/>
+        <button id="btn_add"><i class="fa-solid fa-paper-plane"></i></button>
+</body>
+
+<script>
+     $(function(){
+    $('#btn_add').click(function(){
+        let newItem = $('<li class="item"></li>');
+        let newIcon = $(' <span class="icon">○</span>');
+        let newText = $(' <span class="text">첫번째 테스크 입력</span>');
+
+         let task = $('#input_todo').val();
+         newText.text(task);
+
+         newItem.append(newIcon);
+         newItem.append(newText);
+
+         newItem.click(function(){
+         $(this).toggleClass('done');
+  
+         if( $(this).hasClass('done')) {
+             $(this).find('.icon').text('●');
+         }else{
+            $(this).find('.icon').text('○')
+         }
+    })
+    $('#list').append(newItem)
+    });
+});
+</script>
+</html>
