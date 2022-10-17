@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <img id="icon">
+    <p id = "city"></p>
+    <h1 id = "weather"></h1>
+    <h2 id = "temp"></h2>
+    <p id ="temp_minmax"></p>
+
+    <div id="forecast"></div>
+</body>
+<script>
+    $(function(){
+        let url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.56&lon=126.97&appid=0bd5e7512bfe321ce2248f77ec269eaf&units=metric'
+
+        $.getJSON(url, function(data){
+
+            console.log(data)
+            let city = data.name
+            let weather = data.weather[0].main
+            let temp = data.main.temp
+            let temp_max = data.main.temp_max
+            let temp_min = data.main.temp_min
+
+            console.log(city,temp,weather,temp_max,temp_min)
+
+            $('#weather').text(weather)
+            $('#temp').text(temp)
+            $('#temp_minmax').text(temp_max + '/' + temp_min)
+            $('#city').text(city)
+
+            let icon = data.weather[0].icon
+                console.log(icon)
+
+            let imgURL = 'http://openweathermap.org/img/wn/' + icon + '@2x.png' 
+            //'http://open..'에다가 './img/' img폴더를 만들어 img 폴더 안에있는 새로운 이미지를 아이콘으로 대체 가능
+            $('#icon').attr('src', imgURL)
+        })
+
+        let urlForecast = 'https://api.openweathermap.org/data/2.5/forecast?lat=37.56&lon=126.97&appid=0bd5e7512bfe321ce2248f77ec269eaf&units=metric'
+
+        $.getJSON(urlForecast, function(data){
+            console.log(icon)
+
+            for(let i=0; i<4; i++){
+                let weather = data.list[i].weather[0].main
+                let temp = data.list[i].main.temp
+                let dt = data.list[i].dt
+
+                moment.locale('ko') //시간을 한글로 변경가능
+                let time = moment(dt * 1000).format('MM/DD hh:mm A')//dt 는 밀리초라서 1000 곱해야함
+
+                let dom = $('<div></div>')
+                dom.append('<h3>' + time + '</h3>')
+                dom.append('<p>' + weather + '</p>')
+                dom.append('<p>' + temp + '</p>')
+
+                $('#forecast').append(dom)
+            } //8번을 돌리면 하루이므로 평균을 내서, 하루의 평균 온도를 냄
+        })
+    })
+</script>
+</html>
